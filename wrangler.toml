@@ -1,0 +1,60 @@
+name = "intensifyhq"
+main = "src/index.js"
+compatibility_date = "2024-01-01"
+
+# Account details
+account_id = "YOUR_ACCOUNT_ID"
+workers_dev = true
+
+# Custom domain (optional)
+# route = "intensifyhq.com/*"
+# zone_id = "YOUR_ZONE_ID"
+
+# D1 Database binding
+[[d1_databases]]
+binding = "DB"
+database_name = "intensifyhq-db"
+database_id = "YOUR_DATABASE_ID"
+
+# KV namespace for session storage (optional)
+# [[kv_namespaces]]
+# binding = "SESSIONS"
+# id = "YOUR_KV_NAMESPACE_ID"
+
+# Durable Objects (optional for real-time features)
+# [[durable_objects]]
+# binding = "REALTIME"
+# class_name = "RealtimeCoordinator"
+
+# Static assets
+[site]
+bucket = "./public"
+
+# Environment variables (non-sensitive)
+[vars]
+APP_URL = "https://intensifyhq.workers.dev"
+STRIPE_PUBLISHABLE_KEY = "pk_live_YOUR_PUBLISHABLE_KEY"
+
+# Build configuration
+[build]
+command = "npm run build"
+watch_paths = ["src/**/*.js"]
+
+# Development settings
+[dev]
+port = 8787
+local_protocol = "http"
+
+# Triggers (optional cron jobs)
+# [triggers]
+# crons = ["0 0 * * *"]  # Daily at midnight for streak calculations
+
+# Compatibility flags
+compatibility_flags = ["nodejs_compat"]
+
+# Limits
+[limits]
+cpu_ms = 50
+
+# Usage model
+usage_model = "bundled"
