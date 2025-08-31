@@ -1,5 +1,5 @@
 // IntensifyHQ - Complete Backend for Cloudflare Pages Functions
-// This single file contains all backend logic - no local development needed!
+// Updated with Stripe Payment Link support
 
 // ============================================
 // AUTHENTICATION UTILITIES
@@ -311,9 +311,15 @@ export async function onRequest(context) {
       const token = authHeader.substring(7);
       const payload = await verifyJWT(token, env.JWT_SECRET);
 
-      // Create Stripe checkout URL
-      const baseUrl = 'https://checkout.stripe.com/c/pay/' + env.STRIPE_PRICE_ID;
-      const checkoutUrl = `${baseUrl}#clientReferenceId=${payload.userId}&customerEmail=${payload.email}`;
+      // Use Stripe Payment Link
+      let checkoutUrl;
+      if (env.STRIPE_PAYMENT_LINK) {
+        // If STRIPE_PAYMENT_LINK is set, use it
+        checkoutUrl = `${env.STRIPE_PAYMENT_LINK}?prefilled_email=${encodeURIComponent(payload.email)}&client_reference_id=${payload.userId}`;
+      } else {
+        // Fallback to manual URL if needed
+        checkoutUrl = `https://checkout.stripe.com/pay/${env.STRIPE_PRICE_ID}?client_reference_id=${payload.userId}&prefilled_email=${encodeURIComponent(payload.email)}`;
+      }
 
       return new Response(JSON.stringify({ url: checkoutUrl }), {
         headers: { 'Content-Type': 'application/json', ...corsHeaders }
