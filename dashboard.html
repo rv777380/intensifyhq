@@ -439,6 +439,112 @@
         </div>
     </div>
 
+    <!-- Onboarding Modal -->
+    <div id="onboardingModal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="onboarding-container">
+                <h2>🚀 Welcome to IntensifyHQ!</h2>
+                <p style="text-align: center; margin-bottom: 2rem;">Work like you train - let's get you started!</p>
+                
+                <div class="onboarding-steps">
+                    <div class="onboarding-step">
+                        <span class="step-number">1</span>
+                        <div class="step-content">
+                            <h3>Log Your Tasks</h3>
+                            <p>Rate every task on three metrics:</p>
+                            <ul>
+                                <li><strong>Intensity (1-10):</strong> How difficult is it?</li>
+                                <li><strong>ROI (1-10):</strong> How valuable is it?</li>
+                                <li><strong>Burn (1-10):</strong> How much energy does it take?</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="onboarding-step">
+                        <span class="step-number">2</span>
+                        <div class="step-content">
+                            <h3>Eat Your Frog 🐸</h3>
+                            <p>Mark your hardest, most important task as a "Frog" and complete it before noon. This builds discipline and momentum.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="onboarding-step">
+                        <span class="step-number">3</span>
+                        <div class="step-content">
+                            <h3>Hit Intensity 8+ Daily</h3>
+                            <p>Aim for an average daily intensity of 8 or higher. This ensures you're consistently pushing your limits and growing.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="onboarding-step">
+                        <span class="step-number">4</span>
+                        <div class="step-content">
+                            <h3>Celebrate PRs 🏆</h3>
+                            <p>When you hit a new personal record (highest intensity with ROI ≥8), you'll see a celebration. These mark breakthrough moments!</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button onclick="closeOnboarding()" class="btn btn-primary btn-hero">Start Logging Tasks!</button>
+                    <br>
+                    <a href="/guide.html" style="margin-top: 1rem; display: inline-block;">Read Full Guide</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .onboarding-container {
+            padding: 1rem;
+        }
+        .onboarding-steps {
+            display: grid;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .onboarding-step {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+        .step-number {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        .step-content h3 {
+            margin-top: 0;
+            color: #1f2937;
+        }
+        .step-content ul {
+            margin-top: 0.5rem;
+        }
+    </style>
+
+    <script>
+        // Show onboarding for new users
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!localStorage.getItem('onboardingComplete')) {
+                setTimeout(() => {
+                    document.getElementById('onboardingModal').classList.add('active');
+                }, 500);
+            }
+        });
+
+        function closeOnboarding() {
+            localStorage.setItem('onboardingComplete', 'true');
+            document.getElementById('onboardingModal').classList.remove('active');
+        }
+    </script>
+
     <script src="/app.js"></script>
 </body>
 </html>
