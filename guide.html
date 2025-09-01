@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IntensifyHQ User Guide</title>
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+        .guide-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: white;
+            min-height: 100vh;
+        }
+        .guide-header {
+            text-align: center;
+            padding: 2rem 0;
+            border-bottom: 2px solid #e5e7eb;
+            margin-bottom: 3rem;
+        }
+        .guide-section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: #f9fafb;
+            border-radius: 12px;
+        }
+        .guide-section h2 {
+            color: #6366f1;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .guide-section h3 {
+            color: #374151;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .scoring-table {
+            width: 100%;
+            margin-top: 1rem;
+            border-collapse: collapse;
+        }
+        .scoring-table th {
+            background: #6366f1;
+            color: white;
+            padding: 0.75rem;
+            text-align: left;
+        }
+        .scoring-table td {
+            padding: 0.75rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .tip {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        .back-button {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            background: #6366f1;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <a href="/dashboard" class="back-button">← Back to Dashboard</a>
+    
+    <div class="guide-container">
+        <div class="guide-header">
+            <h1>💪 IntensifyHQ Complete Guide</h1>
+            <p>Master the art of working like you train</p>
+        </div>
+
+        <!-- Dashboard Section -->
+        <div class="guide-section">
+            <h2>📊 Dashboard</h2>
+            <p>Your command center for tracking work performance.</p>
+            
+            <h3>Key Metrics</h3>
+            <ul>
+                <li><strong>Average Intensity:</strong> Your difficulty level across all tasks (target: 8+)</li>
+                <li><strong>Average ROI:</strong> Value generated from your work</li>
+                <li><strong>Average Burn:</strong> Energy expenditure (watch for burnout)</li>
+                <li><strong>Focus Score:</strong> Weighted combination of all metrics</li>
+                <li><strong>Frog Count:</strong> Number of hardest tasks completed</li>
+                <li><strong>PR Count:</strong> Personal records achieved</li>
+            </ul>
+
+            <h3>Charts Explained</h3>
+            <ul>
+                <li><strong>Intensity Trend:</strong> Shows your 4-week progress. Green line = target (8)</li>
+                <li><strong>Intensity vs ROI:</strong> Scatter plot showing task value vs difficulty</li>
+                <li><strong>Action Breakdown:</strong> Pie chart of Keep/Delegate/Automate/Eliminate decisions</li>
+                <li><strong>Frog Timing:</strong> Shows if you're eating frogs before noon (goal)</li>
+            </ul>
+
+            <div class="tip">
+                <strong>💡 Pro Tip:</strong> Check your dashboard every morning to set intentions and every evening to reflect on progress.
+            </div>
+        </div>
+
+        <!-- Tasks Section -->
+        <div class="guide-section">
+            <h2>✅ Tasks</h2>
+            <p>Log every significant work activity with three key metrics.</p>
+            
+            <h3>How to Log a Task</h3>
+            <ol>
+                <li>Enter task name (be specific: "Q3 budget analysis" not just "finance work")</li>
+                <li>Rate <strong>Intensity</strong> (1-10): How mentally/emotionally difficult?</li>
+                <li>Rate <strong>ROI</strong> (1-10): How valuable to your goals?</li>
+                <li>Rate <strong>Burn</strong> (1-10): How much energy did it take?</li>
+                <li>Check "Frog" if this is your hardest task of the day</li>
+                <li>Choose action: Keep doing, Delegate, Automate, or Eliminate</li>
+            </ol>
+
+            <h3>Quick Scoring Reference</h3>
+            <table class="scoring-table">
+                <thead>
+                    <tr>
+                        <th>Score</th>
+                        <th>Intensity</th>
+                        <th>ROI</th>
+                        <th>Burn</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1-3</td>
+                        <td>Trivial (email, admin)</td>
+                        <td>Low value (busywork)</td>
+                        <td>Energizing</td>
+                    </tr>
+                    <tr>
+                        <td>4-6</td>
+                        <td>Average (regular work)</td>
+                        <td>Standard value</td>
+                        <td>Normal energy</td>
+                    </tr>
+                    <tr>
+                        <td>7-8</td>
+                        <td>Challenging (complex)</td>
+                        <td>High value (strategic)</td>
+                        <td>Taxing</td>
+                    </tr>
+                    <tr>
+                        <td>9-10</td>
+                        <td>Maximum (crisis)</td>
+                        <td>Mission-critical</td>
+                        <td>Exhausting</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="tip">
+                <strong>💡 Pro Tip:</strong> Log tasks immediately after completion for most accurate ratings.
+            </div>
+        </div>
+
+        <!-- Insights Section -->
+        <div class="guide-section">
+            <h2>💡 Insights</h2>
+            <p>Discover patterns and optimize your work approach.</p>
+            
+            <h3>Peak Performance Hours</h3>
+            <p>Shows your top 3 most productive hours based on frog completion and intensity. Schedule your most important work during these times.</p>
+
+            <h3>Energy Vampires</h3>
+            <p>Tasks with high burn but low ROI. These drain your energy without providing value. Consider:</p>
+            <ul>
+                <li>Delegating to someone who finds them easier</li>
+                <li>Automating with tools or templates</li>
+                <li>Eliminating if truly unnecessary</li>
+            </ul>
+
+            <h3>Holy Trinity Tasks</h3>
+            <p>The gold standard: Frog + PR + High Intensity (8+) + High ROI (8+). These represent your best work.</p>
+
+            <h3>Recovery Status</h3>
+            <p>Monitors your recent intensity average. If below 4, you may need rest. Signs of burnout:</p>
+            <ul>
+                <li>Consistently low intensity scores</li>
+                <li>High burn with low output</li>
+                <li>Avoiding frog tasks</li>
+            </ul>
+
+            <div class="tip">
+                <strong>💡 Pro Tip:</strong> Review insights weekly to adjust your work strategy.
+            </div>
+        </div>
+
+        <!-- Week Planner Section -->
+        <div class="guide-section">
+            <h2>📅 Week Planner</h2>
+            <p>Plan your frogs in advance for consistent high performance.</p>
+            
+            <h3>How to Use</h3>
+            <ol>
+                <li>Every Sunday, identify 5 frog tasks for the week</li>
+                <li>Assign one to each workday</li>
+                <li>Set target intensity for each day</li>
+                <li>Schedule frogs for your peak hours (see Insights)</li>
+                <li>Complete before noon for maximum willpower</li>
+            </ol>
+
+            <h3>Planning Guidelines</h3>
+            <ul>
+                <li><strong>Monday:</strong> Start strong with intensity 8+ frog</li>
+                <li><strong>Tuesday-Thursday:</strong> Peak performance days (intensity 9+)</li>
+                <li><strong>Friday:</strong> Lighter frog, focus on completion</li>
+            </ul>
+
+            <div class="tip">
+                <strong>💡 Pro Tip:</strong> Write tomorrow's frog before bed to prime your subconscious.
+            </div>
+        </div>
+
+        <!-- Scoring Guide Section -->
+        <div class="guide-section">
+            <h2>📏 Detailed Scoring Guide</h2>
+            <p>Consistent scoring is crucial for accurate insights.</p>
+            
+            <h3>Intensity Scale (Difficulty)</h3>
+            <ul>
+                <li><strong>1:</strong> Mindless - Could do while sleeping (copying, filing)</li>
+                <li><strong>2:</strong> Trivial - Basic routine (email, scheduling)</li>
+                <li><strong>3:</strong> Easy - Some attention needed (data entry, simple calls)</li>
+                <li><strong>4:</strong> Light - Mild focus (routine reports, standard meetings)</li>
+                <li><strong>5:</strong> Average - Normal work (regular projects, planning)</li>
+                <li><strong>6:</strong> Moderate - Requires concentration (analysis, writing)</li>
+                <li><strong>7:</strong> Challenging - Stretches abilities (complex problems, negotiations)</li>
+                <li><strong>8:</strong> Hard - Near limit (major presentations, difficult decisions)</li>
+                <li><strong>9:</strong> Extreme - Maximum capability (crisis management, breakthroughs)</li>
+                <li><strong>10:</strong> Impossible - Beyond current ability (bet-the-company decisions)</li>
+            </ul>
+
+            <h3>ROI Scale (Value)</h3>
+            <ul>
+                <li><strong>1:</strong> Waste - Should not be done</li>
+                <li><strong>2:</strong> Minimal - Barely worth doing</li>
+                <li><strong>3:</strong> Low - Nice to have</li>
+                <li><strong>4:</strong> Below Average - Some value</li>
+                <li><strong>5:</strong> Average - Standard return</li>
+                <li><strong>6:</strong> Above Average - Good value</li>
+                <li><strong>7:</strong> High - Significant impact</li>
+                <li><strong>8:</strong> Very High - Major wins</li>
+                <li><strong>9:</strong> Critical - Game-changing</li>
+                <li><strong>10:</strong> Maximum - Career/Life defining</li>
+            </ul>
+
+            <h3>Burn Scale (Energy Cost)</h3>
+            <ul>
+                <li><strong>1:</strong> Energizing - Gives you energy</li>
+                <li><strong>2:</strong> Refreshing - Easy and enjoyable</li>
+                <li><strong>3:</strong> Light - Minimal effort</li>
+                <li><strong>4:</strong> Mild - Some energy needed</li>
+                <li><strong>5:</strong> Average - Normal tiredness</li>
+                <li><strong>6:</strong> Noticeable - Feel the drain</li>
+                <li><strong>7:</strong> Taxing - Need a break after</li>
+                <li><strong>8:</strong> Exhausting - Need significant recovery</li>
+                <li><strong>9:</strong> Depleting - Wipes you out</li>
+                <li><strong>10:</strong> Total Burnout - Cannot continue</li>
+            </ul>
+        </div>
+
+        <!-- Settings Section -->
+        <div class="guide-section">
+            <h2>⚙️ Settings</h2>
+            <p>Customize IntensifyHQ to match your work style.</p>
+            
+            <h3>Focus Score Weights</h3>
+            <p>Adjust how the Focus Score is calculated:</p>
+            <ul>
+                <li><strong>Intensity Weight (default 0.6):</strong> Increase if difficulty matters most</li>
+                <li><strong>ROI Weight (default 0.3):</strong> Increase if value is paramount</li>
+                <li><strong>Burn Weight (default 0.1):</strong> Increase if energy management is critical</li>
+            </ul>
+
+            <h3>Daily Intensity Target</h3>
+            <p>Default is 8. Adjust based on your role:</p>
+            <ul>
+                <li><strong>6-7:</strong> Maintenance mode, recovery periods</li>
+                <li><strong>8:</strong> Standard high performance</li>
+                <li><strong>9:</strong> Pushing for promotion/launch</li>
+                <li><strong>10:</strong> Emergency sprint mode (unsustainable)</li>
+            </ul>
+
+            <h3>Theme</h3>
+            <ul>
+                <li><strong>Light:</strong> Best for daytime work</li>
+                <li><strong>Dark:</strong> Reduces eye strain in low light</li>
+                <li><strong>Auto:</strong> Follows system preference</li>
+            </ul>
+        </div>
+
+        <!-- Best Practices Section -->
+        <div class="guide-section">
+            <h2>🏆 Best Practices</h2>
+            
+            <h3>Daily Routine</h3>
+            <ol>
+                <li><strong>Morning (First 30 min):</strong> Review yesterday's metrics, identify today's frog</li>
+                <li><strong>Before Noon:</strong> Complete your frog task</li>
+                <li><strong>Throughout Day:</strong> Log tasks immediately after completion</li>
+                <li><strong>Evening:</strong> Review day's performance, plan tomorrow's frog</li>
+            </ol>
+
+            <h3>Weekly Routine</h3>
+            <ol>
+                <li><strong>Monday:</strong> Review last week's insights, set week goals</li>
+                <li><strong>Wednesday:</strong> Mid-week check on intensity average</li>
+                <li><strong>Friday:</strong> Identify energy vampires to eliminate</li>
+                <li><strong>Sunday:</strong> Plan next week's frogs</li>
+            </ol>
+
+            <h3>Common Mistakes to Avoid</h3>
+            <ul>
+                <li>Rating everything as 5 (be honest and specific)</li>
+                <li>Forgetting to mark frog tasks</li>
+                <li>Logging tasks days later (memory fades)</li>
+                <li>Ignoring burn scores (leads to burnout)</li>
+                <li>Not celebrating PRs (motivation matters)</li>
+            </ul>
+
+            <h3>Success Indicators</h3>
+            <ul>
+                <li>Average intensity consistently at/above 8</li>
+                <li>Frog streak longer than 7 days</li>
+                <li>More "Keep" than "Eliminate" decisions</li>
+                <li>PR rate of 2-3 per week</li>
+                <li>Energy vampires decreasing over time</li>
+            </ul>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="guide-section">
+            <h2>❓ Frequently Asked Questions</h2>
+            
+            <h3>What exactly is a "Frog" task?</h3>
+            <p>Your most important AND most difficult task of the day. The one you're most likely to procrastinate on but will have the biggest positive impact.</p>
+
+            <h3>How many tasks should I log daily?</h3>
+            <p>Log 3-7 significant tasks. Don't log every tiny action, but don't miss important work either.</p>
+
+            <h3>What if I can't hit intensity 8?</h3>
+            <p>Either you need harder challenges (ask for stretch projects) or you're underrating your current work. Most knowledge work should hit 6-8 regularly.</p>
+
+            <h3>How do I know if I have a PR?</h3>
+            <p>The app auto-detects PRs when you hit a new maximum intensity with ROI ≥ 8. You'll see a celebration!</p>
+
+            <h3>Should I log failed attempts?</h3>
+            <p>Yes! Rate based on effort, not outcome. Failed attempts at intensity 9 tasks still count.</p>
+
+            <h3>What's the ideal Burn level?</h3>
+            <p>Aim for average burn of 5-6. Too low means you're coasting; too high means burnout risk.</p>
+        </div>
+
+        <div style="text-align: center; padding: 3rem 0;">
+            <a href="/dashboard" class="btn btn-primary" style="text-decoration: none;">Back to Dashboard</a>
+        </div>
+    </div>
+</body>
+</html>
