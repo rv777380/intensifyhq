@@ -842,6 +842,17 @@ function displaySettings(settings) {
     document.getElementById('weightBurn').value = settings.weight_burn || 0.1;
     document.getElementById('theme').value = settings.theme || 'light';
     document.getElementById('dailyTarget').value = settings.daily_intensity_target || 8;
+    
+    // Display subscription info
+    if (settings.email) {
+        document.getElementById('userEmail').textContent = settings.email;
+    }
+    if (settings.subscription_end) {
+        const subEnd = settings.subscription_end === 'Not set' ? 
+            'Trial Period' : 
+            new Date(settings.subscription_end).toLocaleDateString();
+        document.getElementById('subscriptionEnd').textContent = subEnd;
+    }
 }
 
 // Save settings
