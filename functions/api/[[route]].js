@@ -627,7 +627,20 @@ export async function onRequest(context) {
         ).bind(user.userId).first();
       }
       
-      return new Response(JSON.stringify(settings), {
+      // Get user subscription info for display
+      const userInfo = await env.DB.prepare(
+        'SELECT email, subscription_status, subscription_end FROM users WHERE id = ?'
+      ).bind(user.userId).first();
+      
+      // Combine settings with user info
+      const responseData = {
+        ...settings,
+        email: userInfo?.email || 'user@example.com',
+        subscription_status: userInfo?.subscription_status || 'trial',
+        subscription_end: userInfo?.subscription_end || new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString()
+      };
+      
+      return new Response(JSON.stringify(responseData), {
         headers: { 'Content-Type': 'application/json', ...corsHeaders }
       });
     }
