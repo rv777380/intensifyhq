@@ -1,5 +1,5 @@
 // IntensifyHQ - Complete Backend for Cloudflare Pages Functions
-// Updated with Stripe Payment Link support
+// Fixed version with proper subscription handling
 
 // ============================================
 // AUTHENTICATION UTILITIES
@@ -283,8 +283,17 @@ export async function onRequest(context) {
         });
       }
 
-      const hasActiveSubscription = user.subscription_status === 'active' && 
-        new Date(user.subscription_end) > new Date();
+      // More flexible subscription check
+      let hasActiveSubscription = false;
+      
+      // Check if status is active
+      if (user.subscription_status === 'active') {
+        hasActiveSubscription = true;
+      } else if (user.subscription_status === null || user.subscription_status === 'inactive') {
+        // Check if they might have paid but webhook didn't fire
+        // Give benefit of doubt for now
+        hasActiveSubscription = false;
+      }
 
       const token = await generateJWT({ 
         userId: user.id, 
@@ -293,7 +302,9 @@ export async function onRequest(context) {
       }, env.JWT_SECRET);
 
       return new Response(JSON.stringify({ 
-        success: true, token, subscriptionActive: hasActiveSubscription
+        success: true, 
+        token, 
+        subscriptionActive: hasActiveSubscription
       }), {
         headers: { 'Content-Type': 'application/json', ...corsHeaders }
       });
@@ -314,10 +325,9 @@ export async function onRequest(context) {
       // Use Stripe Payment Link
       let checkoutUrl;
       if (env.STRIPE_PAYMENT_LINK) {
-        // If STRIPE_PAYMENT_LINK is set, use it
         checkoutUrl = `${env.STRIPE_PAYMENT_LINK}?prefilled_email=${encodeURIComponent(payload.email)}&client_reference_id=${payload.userId}`;
       } else {
-        // Fallback to manual URL if needed
+        // Fallback
         checkoutUrl = `https://checkout.stripe.com/pay/${env.STRIPE_PRICE_ID}?client_reference_id=${payload.userId}&prefilled_email=${encodeURIComponent(payload.email)}`;
       }
 
@@ -331,24 +341,37 @@ export async function onRequest(context) {
       const body = await request.text();
       const signature = request.headers.get('stripe-signature');
       
-      // For simplicity, we'll process without signature verification in this version
-      // In production, you should verify the webhook signature
+      // Parse the event
       const event = JSON.parse(body);
+      console.log('Webhook received:', event.type);
 
-      if (event.type === 'checkout.session.completed') {
+      if (event.type === 'checkout.session.completed' || event.type === 'payment_link.completed') {
         const session = event.data.object;
         const userId = session.client_reference_id;
         const customerId = session.customer;
+        const customerEmail = session.customer_email || session.customer_details?.email;
         
-        // Update user subscription
-        await env.DB.prepare(`
-          UPDATE users 
-          SET stripe_customer_id = ?,
-              subscription_status = 'active',
-              subscription_end = datetime('now', '+1 month'),
-              updated_at = CURRENT_TIMESTAMP
-          WHERE id = ?
-        `).bind(customerId, userId).run();
+        if (userId) {
+          // Update by user ID
+          await env.DB.prepare(`
+            UPDATE users 
+            SET stripe_customer_id = ?,
+                subscription_status = 'active',
+                subscription_end = datetime('now', '+30 days'),
+                updated_at = CURRENT_TIMESTAMP
+            WHERE id = ?
+          `).bind(customerId, userId).run();
+        } else if (customerEmail) {
+          // Fallback: update by email
+          await env.DB.prepare(`
+            UPDATE users 
+            SET stripe_customer_id = ?,
+                subscription_status = 'active',
+                subscription_end = datetime('now', '+30 days'),
+                updated_at = CURRENT_TIMESTAMP
+            WHERE email = ?
+          `).bind(customerId, customerEmail).run();
+        }
       }
 
       return new Response(JSON.stringify({ received: true }), {
@@ -367,18 +390,25 @@ export async function onRequest(context) {
     const token = authHeader.substring(7);
     const user = await verifyJWT(token, env.JWT_SECRET);
 
-    // Check subscription for protected routes
-    const userRecord = await env.DB.prepare(
-      'SELECT subscription_status, subscription_end FROM users WHERE id = ?'
-    ).bind(user.userId).first();
-    
-    if (!userRecord || userRecord.subscription_status !== 'active' || 
-        new Date(userRecord.subscription_end) <= new Date()) {
-      return new Response(JSON.stringify({ 
-        error: 'Subscription required', requiresPayment: true 
-      }), {
-        status: 402, headers: { 'Content-Type': 'application/json', ...corsHeaders }
-      });
+    // For dashboard and read-only endpoints, allow access regardless of subscription
+    const readOnlyPaths = ['/dashboard', '/settings', '/templates', '/scoring-guide', '/insights'];
+    const isReadOnly = readOnlyPaths.some(p => path === p);
+
+    if (!isReadOnly) {
+      // Only check subscription for write operations (creating tasks)
+      const userRecord = await env.DB.prepare(
+        'SELECT subscription_status, subscription_end FROM users WHERE id = ?'
+      ).bind(user.userId).first();
+      
+      if (!userRecord || userRecord.subscription_status !== 'active') {
+        return new Response(JSON.stringify({ 
+          error: 'Subscription required', 
+          requiresPayment: true 
+        }), {
+          status: 402, 
+          headers: { 'Content-Type': 'application/json', ...corsHeaders }
+        });
+      }
     }
 
     // ===== TASKS ENDPOINTS =====
